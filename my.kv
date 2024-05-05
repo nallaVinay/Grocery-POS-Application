@@ -1,0 +1,522 @@
+WindowManager:
+    id: screen_manager
+    MainWindow:
+    SecondWindow:
+    TimePunch:
+    EmployeeScreen:
+    Orders:
+    Delivery:
+    Price:
+<MainWindow>:
+    name:"main"
+
+    BoxLayout:
+        orientation: 'horizontal'
+        spacing:10
+        padding:10,10,40,40
+        background_normal:''
+        background_color:0.004,0.055,0.102,1.0
+        BoxLayout:
+            col:1
+            orientation: 'vertical'
+            spacing: 10
+            padding:10,0,20,2
+            background_normal:''
+            background_color:0.53, 0.81, 0.92, 1
+            Button:
+                text: 'clock-in & clock-out'
+                font_size:20
+                background_normal:''
+                background_color:0.53, 0.81, 0.92, 1
+                on_press: root.show_login_popup(self.text)
+                font_name: 'GravitasOne-Regular.ttf'
+            Button:
+                text: 'Add product and \n pricing update'
+                font_size:20
+                background_normal:''
+                background_color:0.53, 0.81, 0.92, 1
+                on_press: root.show_login_popup(self.text)
+                font_name: 'GravitasOne-Regular.ttf'
+
+            Button:
+                font_size:20
+                text: 'Delivery and supplier'
+                background_normal:''
+                background_color:0.53, 0.81, 0.92, 1
+                on_press: root.show_login_popup(self.text)
+                font_name: 'GravitasOne-Regular.ttf'
+            Button:
+                font_size:20
+                text: 'Order Reports'
+                background_normal:''
+                background_color:0.53, 0.81, 0.92, 1
+                on_press: root.show_login_popup(self.text)
+                font_name: 'GravitasOne-Regular.ttf'
+            Button:
+                font_size:20
+                text: 'Employee Management'
+                background_normal:''
+                background_color:0.53, 0.81, 0.92, 1
+                on_press: root.show_login_popup(self.text)
+                font_name: 'GravitasOne-Regular.ttf'
+
+
+        GridLayout:
+            cols: 1
+            spacing: 20
+            padding:1,150,1,500
+            size_hint_y: None
+            height: self.minimum_height
+            background_normal:''
+            background_color:0.004,0.055,0.102,1.0
+
+
+
+
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 10
+            padding: 50, 10, 20, 10
+            background_normal: ''
+            background_color: 0.004, 0.055, 0.102, 1.0
+
+            Label:
+                text: 'GROCERY POS'
+                size_hint_y: None
+                height: '100dp'  # Adjust the height as needed
+                font_name: 'GravitasOne-Regular.ttf'
+                font_size: 40
+                color:  1, 0.647, 0
+
+            Label:
+                id: clock
+                text: ''
+                size_hint_y: None
+                height: '40dp'  # Adjust the height as needed
+                font_size: 40
+                font_name: 'GravitasOne-Regular.ttf'
+                color:   1,0.647, 0
+
+
+
+            Button:
+
+                text: 'Ring Order'
+                padding:25,120,0,1
+                font_size:30
+                size_hint_y:None
+                height:500
+                background_normal:''
+                background_color:0.133,0.855,0.431,1.0
+                font_name: 'GravitasOne-Regular.ttf'
+                on_press: root.show_login_popup(self.text)
+
+
+<SecondWindow>:
+    name: "second"
+
+    BoxLayout:
+        orientation: 'horizontal'
+        spacing: 10
+        padding: 10
+        # Selected Items Layout
+        BoxLayout:
+            orientation: 'vertical'
+            spacing: 10
+            # Back Button
+            BoxLayout:
+                orientation: 'horizontal'
+                size_hint: (1, 0.1)
+
+                Button:
+                    text: 'Back'
+                    size_hint: (None, None)
+                    size: (100, 40)
+                    font_name: 'GravitasOne-Regular.ttf'
+                    pos_hint: {'left': 0, 'top': 1}
+                    background_normal:''
+                    background_color:0.53, 0.81, 0.92, 1
+
+                    on_release:
+                        root.back(self)
+                        app.root.current = "main"
+                        root.manager.transition.direction = "right"
+
+                # Scroll View for Selected Items
+            ScrollView:
+
+                # Layout for Selected Items (using GridLayout)
+                GridLayout:
+                    id: Selected_items_layout
+                    cols: 2
+                    spacing: 10
+                    size_hint_y: None
+                    height: self.minimum_height
+                    padding: 10, 10, 10, 100
+
+                    # Dynamic content will be added programmatically
+
+            # Label for Total Amount with Tax
+            Label:
+                size_hint_y:0.10
+                id: total
+                text: 'Total Amount with Tax: $0.00'
+
+            # Table Layout for Discount Buttons
+            GridLayout:
+                cols: 3
+                spacing: 4
+                size_hint_y: None
+                height: 30
+
+                # Discount Buttons
+                Button:
+                    id:dis1
+                    font_name: 'GravitasOne-Regular.ttf'
+                    background_normal:''
+                    background_color:0.004,0.055,0.102,1.0
+                    text: '5% Discount'
+                    size_hint_x: 1
+                    disabled: True
+                    on_press: root.apply_discount(0.05)
+                Button:
+                    id:dis2
+                    background_normal:''
+                    font_name: 'GravitasOne-Regular.ttf'
+                    background_color:0.004,0.055,0.102,1.0
+                    text: '6% Discount'
+                    size_hint_x: 1
+                    disabled: True
+                    on_press: root.apply_discount(0.06)
+                Button:
+                    id:dis3
+                    background_normal:''
+                    font_name: 'GravitasOne-Regular.ttf'
+                    background_color:0.004,0.055,0.102,1.0
+                    text: '7% Discount'
+                    size_hint_x: 1
+                    disabled: True
+                    on_press: root.apply_discount(0.07)
+            # "Remove All" Button
+            GridLayout:
+                cols: 2
+                spacing: 10
+                size_hint_y: None
+                height: 70
+                Button:
+                    background_normal:''
+                    background_color:0.004,0.055,0.102,1.0
+                    text: 'Remove All'
+                    size_hint: (None, None)
+                    size: (100, 40)
+
+                    height: 40
+                    on_press: root.remove_all_items(self)
+                Button:
+                    font_name: 'GravitasOne-Regular.ttf'
+                    background_normal:''
+                    background_color:0.133,0.855,0.431,1.0
+                    text:"pay_bill"
+                    size_hint:(None,None)
+                    size: (200,500)
+                    size_hint_x: 1
+                    height:60
+                    on_press: root.show_customer_details_popup()
+        # Items Layout
+        BoxLayout:
+            orientation: 'vertical'
+
+            # Scroll View for Item Buttons
+            ScrollView:
+
+                # Layout for Item Buttons (using GridLayout)
+                GridLayout:
+                    id:buttons
+                    cols: 2
+                    spacing: 1
+                    size_hint_y: None
+                    height: self.minimum_height
+                    Button:
+                        background_normal:''
+                        background_color:0.53, 0.81, 0.92, 1
+                        text: 'Show All Products'
+                        font_name: 'GravitasOne-Regular.ttf'
+                        size_hint_y:None
+                        height:40
+                        on_press: root.build_buttons()
+
+
+<EmployeeScreen>:
+    name: "Labor"
+    orientation: 'vertical'
+    padding: 10
+
+    BoxLayout:
+        background_normal: ''
+        background_color: 0.004, 0.055, 0.102, 1.0
+
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: (1, 0.1)
+            background_normal: ''
+            background_color: 0.004, 0.055, 0.102, 1.0
+            padding:5
+            Button:
+                text: 'Back'
+                size_hint: (None, None)
+                size: (100, 40)
+                font_name: 'GravitasOne-Regular.ttf'
+
+                pos_hint: {'left': 0, 'top': 1}
+                background_normal: ''
+                background_color:0.53, 0.81, 0.92, 1
+                on_release:
+                    app.root.current = "main"
+                    root.manager.transition.direction = "left"
+
+    GridLayout:
+        cols: 2
+        spacing: 30
+        background_normal: ''
+        background_color: 0.004, 0.055, 0.102, 1.0
+
+        size_hint_y: 0.4  # Adjust this value to control the height
+        pos_hint: {'center_x': 0.5}
+
+
+        Button:
+
+            text: 'All Employees'
+            background_normal: ''
+            font_name: 'GravitasOne-Regular.ttf'
+            background_color:0.53, 0.81, 0.92, 1
+            on_press: root.show_all_employees()
+
+        Button:
+            text: 'Add Employee'
+            background_normal: ''
+            font_name: 'GravitasOne-Regular.ttf'
+            background_color:0.53, 0.81, 0.92, 1
+            on_press: root.add_employee()
+
+        Button:
+            text: 'Edit Employee'
+            background_normal: ''
+            font_name: 'GravitasOne-Regular.ttf'
+            background_color:0.53, 0.81, 0.92, 1
+            on_press: root.edit_employee()
+
+        Button:
+            text: 'Delete Employee'
+            font_name: 'GravitasOne-Regular.ttf'
+            background_normal: ''
+            background_color:0.53, 0.81, 0.92, 1
+            on_press: root.delete_employee()
+
+<Orders>:
+    name: "order_list"
+    orientation: 'vertical'
+    padding: 10
+
+    BoxLayout:
+        background_normal: ''
+        background_color: 0.004, 0.055, 0.102, 1.0
+
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: (1, 0.1)
+            background_normal: ''
+            background_color: 0.004, 0.055, 0.102, 1.0
+            padding:5
+            Button:
+                text: 'Back'
+                font_name: 'GravitasOne-Regular.ttf'
+                size_hint: (None, None)
+                size: (100, 40)
+                pos_hint: {'left': 0, 'top': 1}
+                background_normal: ''
+                background_color:0.53, 0.81, 0.92, 1
+                on_release:
+                    app.root.current = "main"
+                    root.manager.transition.direction = "left"
+
+    GridLayout:
+        cols: 2
+        spacing: 30
+        padding:30
+        background_normal: ''
+        background_color: 0.004, 0.055, 0.102, 1.0
+
+        size_hint_y: 0.4  # Adjust this value to control the height
+        pos_hint: {'center_x': 0.5}
+
+
+        Button:
+
+            text: 'check customer orders'
+            font_name: 'GravitasOne-Regular.ttf'
+            background_normal: ''
+            background_color:0.53, 0.81, 0.92, 1
+            on_press:root.order_check()
+
+
+        Button:
+            text: 'order for store '
+            font_name: 'GravitasOne-Regular.ttf'
+            background_normal: ''
+            background_color:0.53, 0.81, 0.92, 1
+            on_press:root.show_all_orders()
+
+        Button:
+            font_name: 'GravitasOne-Regular.ttf'
+            text: 'customer orders id check '
+            background_normal: ''
+            background_color:0.53, 0.81, 0.92, 1
+            on_press:root.order_id_check()
+
+<Delivery>:
+    name: "Delivery_list"
+    orientation: 'vertical'
+    padding: 10
+
+    BoxLayout:
+        background_normal: ''
+        background_color: 0.004,0.055,0.102,1.0
+
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: (1, 0.1)
+            background_normal: ''
+            background_color: 0.004, 0.055, 0.102, 1.0
+            padding:5
+            Button:
+                text: 'Back'
+                font_name: 'GravitasOne-Regular.ttf'
+                size_hint: (None, None)
+                size: (100, 40)
+
+                pos_hint: {'left': 0, 'top': 1}
+                background_normal: ''
+                background_color:0.53, 0.81, 0.92, 1
+                on_release:
+                    app.root.current = "main"
+                    root.manager.transition.direction = "left"
+
+    GridLayout:
+        cols: 2
+        spacing: 20
+        padding:20
+        background_normal: ''
+        background_color: 0.004, 0.055, 0.102, 1.0
+
+        size_hint_y: 0.4  # Adjust this value to control the height
+        pos_hint: {'center_x': 0.5}
+
+
+        Button:
+
+            text: 'Add delivery '
+            background_normal: ''
+            font_name: 'GravitasOne-Regular.ttf'
+            background_color:0.53, 0.81, 0.92, 1
+            on_press: root.delivery_details()
+
+        Button:
+            text: 'All supplier '
+            background_normal: ''
+            font_name: 'GravitasOne-Regular.ttf'
+            background_color:0.53, 0.81, 0.92, 1
+            on_press:root.show_all_suppliers()
+        Button:
+            text: 'Add New supplier '
+            font_name: 'GravitasOne-Regular.ttf'
+            background_normal: ''
+            background_color:0.53, 0.81, 0.92, 1
+            on_press:root.add_supplier()
+        Button:
+            text: 'Edit supplier '
+            font_name: 'GravitasOne-Regular.ttf'
+            background_normal: ''
+            background_color:0.53, 0.81, 0.92, 1
+            on_press:root.edit_supplier()
+        Button:
+
+            text: 'Delete supplier'
+            font_name: 'GravitasOne-Regular.ttf'
+            background_normal: ''
+            background_color:0.53, 0.81, 0.92, 1
+            on_press:root.delete_supplier()
+
+
+
+<Price>:
+    name: "price_update"
+    orientation: 'vertical'
+    padding: 10
+
+    BoxLayout:
+        background_normal: ''
+        background_color: 0.004, 0.055, 0.102, 1.0
+
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: (1, 0.1)
+            background_normal: ''
+            background_color: 0.004, 0.055, 0.102, 1.0
+            padding:5
+            spacing:5
+
+            Button:
+                text: 'Back'
+                size_hint: (None, None)
+                size: (100, 40)
+                font_name: 'GravitasOne-Regular.ttf'
+                pos_hint: {'left': 0, 'top': 1}
+                background_normal:''
+                background_color:0.53, 0.81, 0.92, 1
+                on_release:
+                    app.root.current = "main"
+                    root.manager.transition.direction = "left"
+
+    GridLayout:
+        cols: 2
+        padding:80
+        spacing: 30  # Adjust this value to control the spacing between buttons
+        background_normal: ''
+        background_color: 0.004, 0.055, 0.102, 1.0
+
+        size_hint_y: 0.4  # Adjust this value to control the height
+        pos_hint: {'center_x': 0.5}
+
+        Button:
+            text: 'All Products '
+            background_normal: ''
+            font_name: 'GravitasOne-Regular.ttf'
+            background_color:0.53, 0.81, 0.92, 1
+            on_press: root.show_all_products()
+        Button:
+            text: 'Add Products '
+            background_normal: ''
+            font_name: 'GravitasOne-Regular.ttf'
+            background_color:0.53, 0.81, 0.92, 1
+            on_press:root.add_product()
+        Button:
+            text: 'product update '
+            background_normal: ''
+            background_color:0.53, 0.81, 0.92, 1
+            font_name: 'GravitasOne-Regular.ttf'
+            on_press:root.edit_prdouct()
+
+
+
+
+
+
+
+
+
+

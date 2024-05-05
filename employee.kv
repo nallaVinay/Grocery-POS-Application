@@ -1,0 +1,63 @@
+<EmployeeScreen>:
+    name: "Labor"
+    orientation: 'vertical'
+    padding: 10
+
+    BoxLayout:
+        background_normal: ''
+        background_color: 0.004, 0.055, 0.102, 1.0
+
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: (1, 0.1)
+            background_normal: ''
+            background_color: 0.004, 0.055, 0.102, 1.0
+
+
+            Button:
+                text: 'Back'
+                size_hint: (None, None)
+                size: (100, 40)
+                height: 100
+                pos_hint: {'left': 0, 'top': 1}
+                background_normal: ''
+                background_color: 0.004, 0.055, 0.102, 1.0
+                on_release:
+                    app.root.current = "main"
+                    root.manager.transition.direction = "left"
+
+    GridLayout:
+        cols: 2
+        spacing: 30
+        background_normal: ''
+        background_color: 0.004, 0.055, 0.102, 1.0
+
+        size_hint_y: 0.4  # Adjust this value to control the height
+        pos_hint: {'center_x': 0.5}
+
+
+        Button:
+
+            text: 'All Employees'
+            background_normal: ''
+            background_color: 0.004, 0.055, 0.102, 1.0
+            on_press: root.show_all_employees()
+
+        Button:
+            text: 'Add Employee'
+            background_normal: ''
+            background_color: 0.004, 0.055, 0.102, 1.0
+            on_press: root.add_employee()
+
+        Button:
+            text: 'Edit Employee'
+            background_normal: ''
+            background_color: 0.004, 0.055, 0.102, 1.0
+            on_press: root.edit_employee()
+
+        Button:
+            text: 'Delete Employee'
+            background_normal: ''
+            background_color: 0.004, 0.055, 0.102, 1.0
+            on_press: root.delete_employee()
